@@ -1,0 +1,146 @@
+Using selector: SelectSelector
+Starting new HTTPS connection (1): api.blueshirtmap.com:443
+Using selector: SelectSelector
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 320
+Using selector: SelectSelector
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 320
+Using selector: SelectSelector
+ERNIE API Key length: 51
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 590
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 None
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 None
+AI API调用完成，状态码: 200
+AI API调用成功
+ERNIE API Key length: 51
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 316
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 506
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 326
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 481
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 494
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 495
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 500
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 329
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 337
+AI API调用完成，状态码: 200
+AI API调用成功
+ERNIE API Key length: 51
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 None
+AI API调用完成，状态码: 200
+AI API调用成功
+Using selector: SelectSelector
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 320
+Using selector: SelectSelector
+ERNIE API Key length: 51
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 572
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 927
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 None
+AI API调用完成，状态码: 200
+AI API调用成功
+ERNIE API Key length: 51
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 316
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 506
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 336
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 481
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 325
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 495
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 500
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 500
+AI API调用完成，状态码: 200
+AI API调用成功
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443
+https://www.blueshirtmap.com:443 "POST /v1/chat/completions HTTP/1.1" 200 337
+AI API调用完成，状态码: 200
+AI API调用成功
+ERNIE API Key length: 51
+开始调用AI API，模型: gpt-3.5-turbo，URL: https://www.blueshirtmap.com/v1/chat/completions
+Starting new HTTPS connection (1): www.blueshirtmap.com:443

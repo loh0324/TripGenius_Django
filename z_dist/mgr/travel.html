@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>旅行计划 - 智能旅行助手</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007bff',
+                        secondary: '#ffc107',
+                        danger: '#dc3545',
+                        light: '#f8f9fa',
+                        dark: '#343a40',
+                        muted: '#6c757d',
+                    },
+                    fontFamily: {
+                        sans: ['Microsoft Yahei', 'Arial', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .btn-hover {
+                transition: all 0.3s ease;
+            }
+            .btn-hover:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            .spin {
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100 min-h-screen">
+    <section class="max-w-7xl mx-auto px-4 py-6" id="root">
+        <!-- 导航菜单 -->
+        <div class="mb-8">
+            <ul class="flex flex-wrap bg-gray-100 rounded-lg overflow-hidden">
+                <li class="flex-1 text-center min-w-[100px]"><a href="/mgr/index.html" class="block py-4 px-3 text-gray-700 font-medium hover:bg-primary hover:text-white transition-all duration-300">主页</a></li>
+                <li class="flex-1 text-center min-w-[100px]"><a href="/mgr/travel.html" class="block py-4 px-3 bg-primary text-white font-medium">旅行计划</a></li>
+                <li class="flex-1 text-center min-w-[100px]"><a href="/mgr/ai.html" class="block py-4 px-3 text-gray-700 font-medium hover:bg-primary hover:text-white transition-all duration-300">AI助手</a></li>
+                <li class="flex-1 text-center min-w-[100px]"><a href="/mgr/profile.html" class="block py-4 px-3 text-gray-700 font-medium hover:bg-primary hover:text-white transition-all duration-300">个人资料</a></li>
+                <li class="flex-1 text-center min-w-[100px]"><a href="#" onclick="logout()" class="block py-4 px-3 text-gray-700 font-medium hover:bg-primary hover:text-white transition-all duration-300">退出</a></li>
+            </ul>
+        </div>
+
+        <!-- 旅行计划容器 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">
+                <i class="fa fa-suitcase mr-2"></i> 我的旅行计划
+            </h2>
+
+            <!-- 功能区 -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-100">我的旅行计划</h3>
+                <button class="bg-primary text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primary/90 transition-all duration-300 flex items-center" onclick="showCreatePlanModal()">
+                    <i class="fa fa-plus mr-2"></i> 创建新计划
+                </button>
+
+                <!-- 加载状态 -->
+                <div class="flex flex-col items-center justify-center py-12 hidden" id="plansLoading">
+                    <div class="w-10 h-10 border-4 border-gray-200 border-t-primary rounded-full spin mb-4"></div>
+                    <p class="text-gray-500">正在加载旅行计划...</p>
+                </div>
+
+                <!-- 计划列表 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6" id="plansList">
+                    <!-- 计划列表将通过JavaScript动态加载 -->
+                    <p>加载中...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 创建计划模态框 -->
+        <div id="createPlanModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+            <div id="modalContent" class="bg-white rounded-xl shadow-lg w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-gray-800">创建旅行计划</h3>
+                        <button onclick="closeCreatePlanModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <form id="createPlanForm">
+                        <div class="mb-4">
+                            <label for="planTitle" class="block text-sm font-medium text-gray-700 mb-1">计划标题:</label>
+                            <input type="text" id="planTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="planDestination" class="block text-sm font-medium text-gray-700 mb-1">目的地:</label>
+                            <input type="text" id="planDestination" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="planStartDate" class="block text-sm font-medium text-gray-700 mb-1">开始日期:</label>
+                                <input type="date" id="planStartDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" required>
+                            </div>
+                            <div>
+                                <label for="planEndDate" class="block text-sm font-medium text-gray-700 mb-1">结束日期:</label>
+                                <input type="date" id="planEndDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" required>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="planBudget" class="block text-sm font-medium text-gray-700 mb-1">预算:</label>
+                            <input type="number" id="planBudget" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" step="0.01">
+                        </div>
+                        <div class="mb-6">
+                            <label for="planDescription" class="block text-sm font-medium text-gray-700 mb-1">描述:</label>
+                            <textarea id="planDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg shadow-sm hover:bg-primary/90 transition-all duration-300">创建计划</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 页面加载完成后获取计划列表
+        $(document).ready(function() {
+            loadTravelPlans();
+
+            // 绑定表单提交事件
+            $('#createPlanForm').on('submit', function(e) {
+                e.preventDefault();
+                createTravelPlan();
+            });
+        });
+
+        // 加载旅行计划列表
+        function loadTravelPlans() {
+            $('#plansLoading').removeClass('hidden');
+            $('#plansList').html('');
+
+            $.ajax({
+                url: "/api/travel/plans/",
+                type: "GET",
+                success: function(response) {
+                    $('#plansLoading').addClass('hidden');
+                    if (response.ret === 0) {
+                        displayPlans(response.data);
+                    } else {
+                        $('#plansList').html(`
+                            <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+                                <p>获取计划列表失败: ${response.msg}</p>
+                            </div>
+                        `);
+                    }
+                },
+                error: function() {
+                    $('#plansLoading').addClass('hidden');
+                    $('#plansList').html(`
+                        <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+                            <p>网络错误，请稍后重试</p>
+                        </div>
+                    `);
+                }
+            });
+        }
+
+        // 显示计划列表
+        function displayPlans(plans) {
+            var plansHtml = '';
+            if (plans.length === 0) {
+                plansHtml = `
+                    <div class="col-span-full bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+                        <div class="mb-4 text-blue-400"><i class="fa fa-map-o text-5xl"></i></div>
+                        <p class="text-gray-700">暂无旅行计划，点击"创建新计划"按钮开始创建您的第一个旅行计划。</p>
+                    </div>
+                `;
+            } else {
+                plans.forEach(function(plan) {
+                    plansHtml += `
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+                            <div class="p-5">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">${plan.title}</h4>
+                                <div class="text-sm text-gray-600 mb-3">
+                                    <p class="mb-1"><i class="fa fa-map-marker text-primary mr-2"></i> 目的地: ${plan.destination}</p>
+                                    <p class="mb-1"><i class="fa fa-calendar text-primary mr-2"></i> ${plan.start_date} 至 ${plan.end_date}</p>
+                                    ${plan.budget ? `<p><i class="fa fa-money text-primary mr-2"></i> 预算: ¥${plan.budget}</p>` : ''}
+                                </div>
+                                <p class="text-gray-700 text-sm mb-4 line-clamp-2">${plan.description || '暂无描述'}</p>
+                                <div class="flex justify-between">
+                                    <button onclick="viewPlanDetail(${plan.id})" class="text-sm text-primary hover:text-primary/80 font-medium">
+                                        <i class="fa fa-eye mr-1"></i> 查看
+                                    </button>
+                                    <div>
+                                        <button onclick="editPlan(${plan.id})" class="text-sm text-secondary hover:text-secondary/80 font-medium mr-3">
+                                            <i class="fa fa-edit mr-1"></i> 编辑
+                                        </button>
+                                        <button onclick="deletePlan(${plan.id})" class="text-sm text-danger hover:text-danger/80 font-medium">
+                                            <i class="fa fa-trash mr-1"></i> 删除
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            $('#plansList').html(plansHtml);
+        }
+
+        // 显示创建计划模态框
+        function showCreatePlanModal() {
+            $('#createPlanModal').removeClass('hidden');
+            // 添加显示动画
+            setTimeout(() => {
+                $('#modalContent').removeClass('scale-95 opacity-0').addClass('scale-100 opacity-100');
+            }, 10);
+        }
+
+        // 关闭创建计划模态框
+        function closeCreatePlanModal() {
+            // 添加关闭动画
+            $('#modalContent').removeClass('scale-100 opacity-100').addClass('scale-95 opacity-0');
+            setTimeout(() => {
+                $('#createPlanModal').addClass('hidden');
+            }, 300);
+        }
+
+        // 点击模态框外部关闭模态框
+        window.onclick = function(event) {
+            var modal = document.getElementById('createPlanModal');
+            if (event.target == modal) {
+                closeCreatePlanModal();
+            }
+        }
+
+        // 创建旅行计划
+        function createTravelPlan() {
+            var planData = {
+                title: $('#planTitle').val(),
+                destination: $('#planDestination').val(),
+                start_date: $('#planStartDate').val(),
+                end_date: $('#planEndDate').val(),
+                budget: $('#planBudget').val() || null,
+                description: $('#planDescription').val()
+            };
+
+            $.ajax({
+                url: "/api/travel/plans/create/",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({plan: planData}),
+                success: function(response) {
+                    if (response.ret === 0) {
+                        alert("计划创建成功");
+                        closeCreatePlanModal();
+                        loadTravelPlans();
+                        // 清空表单
+                        $('#createPlanForm')[0].reset();
+                    } else {
+                        alert("创建计划失败: " + response.msg);
+                    }
+                },
+                error: function() {
+                    alert("网络错误，请稍后重试");
+                }
+            });
+        }
+
+        // 查看计划详情
+        function viewPlanDetail(planId) {
+            alert("计划详情功能将在后续版本中实现，计划ID: " + planId);
+        }
+
+        // 编辑计划
+        function editPlan(planId) {
+            alert("编辑功能将在后续版本中实现，计划ID: " + planId);
+        }
+
+        // 删除计划
+        function deletePlan(planId) {
+            if (confirm("确定要删除这个旅行计划吗？")) {
+                $.ajax({
+                    url: `/api/travel/plans/${planId}/delete/`,
+                    type: "POST",
+                    success: function(response) {
+                        if (response.ret === 0) {
+                            alert("计划删除成功");
+                            loadTravelPlans();
+                        } else {
+                            alert("删除计划失败: " + response.msg);
+                        }
+                    },
+                    error: function() {
+                        alert("网络错误，请稍后重试");
+                    }
+                });
+            }
+        }
+
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                $.ajax({
+                    url: "/api/mgr/signout",
+                    type: "POST",
+                    success: function() {
+                        window.location.href = "/mgr/sign.html";
+                    },
+                    error: function() {
+                        window.location.href = "/mgr/sign.html";
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

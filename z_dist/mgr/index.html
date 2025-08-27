@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能旅行助手</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/mgr/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* 导航菜单样式 */
+        .nav-menu {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-menu li {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 18px 10px;
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a.active {
+            color: #2c84d8;
+            font-weight: 600;
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #2c84d8;
+        }
+
+        .nav-menu a:hover:not(.active) {
+            color: #2c84d8;
+            background-color: #f0f7ff;
+        }
+
+        /* 主容器样式 */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card h2 {
+            color: #2c84d8;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .card ul {
+            padding-left: 25px;
+            margin-top: 15px;
+        }
+
+        .card ul li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        /* 功能卡片容器 */
+        .feature-cards {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* 功能卡片样式 */
+        .feature-card {
+            flex: 1;
+            min-width: 250px;
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            border-top: 4px solid #2c84d8;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            font-size: 42px;
+            color: #2c84d8;
+            margin-bottom: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h4 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .nav-menu ul {
+                flex-wrap: wrap;
+            }
+
+            .nav-menu li {
+                flex: 1 0 33.33%;
+            }
+
+            .feature-cards {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-menu">
+        <ul>
+            <li><a href="/mgr/index.html" class="active">主页</a></li>
+            <li><a href="/mgr/travel.html">旅行计划</a></li>
+            <li><a href="/mgr/ai.html">AI助手</a></li>
+            <li><a href="/mgr/profile.html">个人资料</a></li>
+            <li><a href="#" onclick="logout()">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="main-container">
+        <div class="card">
+            <h2 style="text-align: center;">
+                <i class="fa fa-home"></i> 欢迎使用智能旅行助手
+            </h2>
+            <p style="text-align: center; font-size: 18px; margin: 20px 0;">
+                您的智能旅行规划伙伴
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>功能介绍</h3>
+            <p>智能旅行助手为您提供全方位的旅行规划服务，包括：</p>
+            <ul>
+                <li>创建和管理旅行计划</li>
+                <li>详细的目的地和景点信息</li>
+                <li>个性化的行程安排</li>
+                <li>旅行清单管理</li>
+                <li>AI智能推荐和翻译服务</li>
+            </ul>
+        </div>
+
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa fa-suitcase"></i>
+                </div>
+                <h4>旅行计划</h4>
+                <p>创建和管理您的旅行计划，包括日期、预算和目的地</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa fa-map-marker"></i>
+                </div>
+                <h4>目的地管理</h4>
+                <p>详细规划每个目的地的行程和景点</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa fa-list"></i>
+                </div>
+                <h4>旅行清单</h4>
+                <p>创建和管理旅行清单，确保您不会忘记任何物品</p>
+            </div>
+        </div>
+
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <h4>行程安排</h4>
+                <p>详细规划每天的行程，确保不错过任何精彩</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa fa-robot"></i>
+                </div>
+                <h4>AI推荐</h4>
+                <p>获得基于您偏好的个性化旅行建议</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa fa-language"></i>
+                </div>
+                <h4>语言翻译</h4>
+                <p>实时翻译帮助您在旅途中无障碍沟通</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                $.ajax({
+                    url: "/api/mgr/signout",
+                    type: "POST",
+                    success: function() {
+                        window.location.href = "/mgr/sign.html";
+                    },
+                    error: function() {
+                        window.location.href = "/mgr/sign.html";
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

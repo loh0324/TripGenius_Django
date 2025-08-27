@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI助手 - 智能旅行助手</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        accent: '#007bff',
+                        danger: '#dc3545',
+                        light: '#f8f9fa',
+                        dark: '#343a40',
+                        muted: '#6c757d',
+                        card: '#f8fafc',
+                        'card-hover': '#f1f5f9',
+                        'text-primary': '#1e293b',
+                        'text-secondary': '#475569'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Microsoft Yahei', 'Arial', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 15px rgba(0, 0, 0, 0.05)',
+                        'hover': '0 8px 30px rgba(0, 0, 0, 0.12)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-hover {
+                transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+                background-color: #f1f5f9;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            }
+            .loading-spinner {
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #007bff;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-text-primary min-h-screen">
+    <!-- 导航菜单 -->
+    <div class="bg-white shadow-sm mb-8">
+        <ul class="flex flex-wrap max-w-7xl mx-auto">
+            <li class="flex-1 text-center min-w-[100px]"><a href="/mgr/index.html" class="block py-4 px-3 text-gray-700 font-medium hover:bg-primary hover:text-white transition-all duration-300">主页</a></li>
+            <li class="flex-1 text-center min-w-[100px]"><a href="/mgr/travel.html" class="block py-4 px-3 text-gray-700 font-medium hover:bg-primary hover:text-white transition-all duration-300">旅行计划</a></li>
+            <li class="flex-1 text-center min-w-[100px]"><a href="/mgr/ai.html" class="block py-4 px-3 bg-primary text-white font-medium">AI助手</a></li>
+            <li class="flex-1 text-center min-w-[100px]"><a href="/mgr/profile.html" class="block py-4 px-3 text-gray-700 font-medium hover:bg-primary hover:text-white transition-all duration-300">个人资料</a></li>
+            <li class="flex-1 text-center min-w-[100px]"><a href="#" onclick="logout()" class="block py-4 px-3 text-gray-700 font-medium hover:bg-primary hover:text-white transition-all duration-300">退出</a></li>
+        </ul>
+    </div>
+
+    <!-- 页面标题 -->
+    <div class="relative h-32 md:h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
+        <div class="text-center z-10 px-4">
+            <h1 class="text-2xl md:text-3xl font-bold mb-2 text-gray-800 tracking-tight">
+                <i class="fa fa-robot mr-2 text-primary"></i> AI旅行助手
+            </h1>
+            <p class="text-base md:text-lg text-gray-600">
+                利用人工智能，为您提供个性化的旅行建议和服务
+            </p>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- 语言翻译卡片 -->
+        <div class="bg-card rounded-xl shadow-soft p-6 mb-6 card-hover">
+            <h3 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-200 flex items-center text-text-primary">
+                <i class="fa fa-language text-primary mr-2"></i> 语言翻译
+            </h3>
+            <p class="text-text-secondary mb-6">输入您需要翻译的文本，选择目标语言，AI将为您翻译。</p>
+
+            <form id="translateForm">
+                <div class="mb-4">
+                    <label for="sourceText" class="block text-sm font-medium text-text-secondary mb-1">原文:</label>
+                    <textarea id="sourceText" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="请输入需要翻译的文本"></textarea>
+                </div>
+
+                <div class="mb-6">
+                    <label for="targetLanguage" class="block text-sm font-medium text-text-secondary mb-1">目标语言:</label>
+                    <select id="targetLanguage" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all">
+                        <option value="zh">中文</option>
+                        <option value="en">英语</option>
+                        <option value="ja">日语</option>
+                        <option value="ko">韩语</option>
+                        <option value="fr">法语</option>
+                        <option value="de">德语</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition-all duration-300 flex items-center shadow-md hover:shadow-lg">
+                    <i class="fa fa-exchange mr-2"></i> 翻译
+                </button>
+            </form>
+
+            <div class="loading mt-6 flex flex-col items-center justify-center hidden" id="translateLoading">
+                <div class="loading-spinner"></div>
+                <p class="text-text-secondary">正在翻译中...</p>
+            </div>
+
+            <div class="mt-6 bg-blue-50 border-l-4 border-primary p-5 rounded-r-lg hidden" id="translateResult">
+                <h4 class="font-medium text-text-primary mb-2">翻译结果:</h4>
+                <div id="translatedText" class="text-text-secondary"></div>
+            </div>
+        </div>
+
+        <!-- 旅行推荐卡片 -->
+        <div class="bg-card rounded-xl shadow-soft p-6 mb-6 card-hover">
+            <h3 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-200 flex items-center text-text-primary">
+                <i class="fa fa-star text-primary mr-2"></i> 旅行推荐
+            </h3>
+            <p class="text-text-secondary mb-6">根据您的偏好，AI将为您推荐旅行目的地和行程安排。</p>
+
+            <form id="recommendForm">
+                <div class="mb-6">
+                    <label for="userPreferences" class="block text-sm font-medium text-text-secondary mb-1">您的偏好:</label>
+                    <textarea id="userPreferences" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="请描述您的旅行偏好，例如：喜欢自然风光、历史文化，预算范围等"></textarea>
+                </div>
+
+                <button type="submit" class="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/90 transition-all duration-300 flex items-center shadow-md hover:shadow-lg">
+                    <i class="fa fa-magic mr-2"></i> 获取推荐
+                </button>
+            </form>
+
+            <div class="loading mt-6 flex flex-col items-center justify-center hidden" id="recommendLoading">
+                <div class="loading-spinner"></div>
+                <p class="text-text-secondary">正在生成推荐...</p>
+            </div>
+
+            <div class="mt-6 bg-blue-50 border-l-4 border-primary p-5 rounded-r-lg hidden" id="recommendResult">
+                <h4 class="font-medium text-text-primary mb-2">推荐结果:</h4>
+                <div id="recommendationText" class="text-text-secondary"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // 绑定翻译表单提交事件
+            $('#translateForm').on('submit', function(e) {
+                e.preventDefault();
+                translateText();
+            });
+
+            // 绑定推荐表单提交事件
+            $('#recommendForm').on('submit', function(e) {
+                e.preventDefault();
+                getRecommendation();
+            });
+        });
+
+        // 文本翻译功能
+        function translateText() {
+            var text = $('#sourceText').val();
+            var targetLanguage = $('#targetLanguage').val();
+
+            if (!text) {
+                alert('请输入需要翻译的文本');
+                return;
+            }
+
+            // 显示加载状态
+            $('#translateLoading').show();
+            $('#translateResult').hide();
+
+            var requestData = {
+                text: text,
+                target_language: targetLanguage
+            };
+
+            $.ajax({
+                url: "/api/ai/translate/",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(requestData),
+                success: function(response) {
+                    $('#translateLoading').hide();
+                    if (response.ret === 0) {
+                        $('#translatedText').html('<p>' + response.data.translated_text + '</p>');
+                        $('#translateResult').show();
+                    } else {
+                        alert("翻译失败: " + response.msg);
+                    }
+                },
+                error: function() {
+                    $('#translateLoading').hide();
+                    alert("网络错误，请稍后重试");
+                }
+            });
+        }
+
+        // 获取旅行推荐
+        function getRecommendation() {
+            var preferences = $('#userPreferences').val();
+
+            if (!preferences) {
+                alert('请描述您的旅行偏好');
+                return;
+            }
+
+            // 显示加载状态
+            $('#recommendLoading').show();
+            $('#recommendResult').hide();
+
+            var requestData = {
+                preferences: preferences
+            };
+
+            $.ajax({
+                url: "/api/ai/recommend/",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(requestData),
+                success: function(response) {
+                    $('#recommendLoading').hide();
+                    if (response.ret === 0) {
+                        $('#recommendationText').html('<div>' + response.data.recommendation + '</div>');
+                        $('#recommendResult').show();
+                    } else {
+                        alert("获取推荐失败: " + response.msg);
+                    }
+                },
+                error: function() {
+                    $('#recommendLoading').hide();
+                    alert("网络错误，请稍后重试");
+                }
+            });
+        }
+
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                $.ajax({
+                    url: "/api/mgr/signout",
+                    type: "POST",
+                    success: function() {
+                        window.location.href = "/mgr/sign.html";
+                    },
+                    error: function() {
+                        window.location.href = "/mgr/sign.html";
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
