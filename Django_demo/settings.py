@@ -188,4 +188,4 @@ import os
 
 # 文心一言API配置
 # 现在改为配置新的AI API Key
-ERNIE_API_KEY = 'sk-UuojGdWvlo0zKvQKtRrWUQJPdC0Sm0t9f1wndh2GgmvNMyTG'  # 请替换为从blueshirtmap获取的实际API Key
+ERNIE_API_KEY = 'XXXX'  # 请替换为从blueshirtmap获取的实际API Key
